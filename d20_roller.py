@@ -9,7 +9,6 @@ root.title('D20 roller')
 root.geometry('800x600')
 
 def calculate():
-    list=[]
     sides=num_entry_sides.get()
     num=num_entry.get()
     try:
