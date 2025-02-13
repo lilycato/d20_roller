@@ -11,11 +11,15 @@ root.geometry('800x600')
 def calculate():
     sides=num_entry_sides.get()
     num=num_entry.get()
+    total = 0
     try:
         sides = int(sides)
         num = int(num)
         for i in range(num):
-            list_box.insert(tk.END, random.randint(1, sides))
+            generated = random.randint(1, sides)
+            list_box.insert(tk.END, generated)
+            total += generated
+        my_label['text']="Result:" + " " + str(total)
     except:
         my_label['text']="Please only enter numbers"
 
