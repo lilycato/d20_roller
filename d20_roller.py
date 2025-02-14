@@ -31,6 +31,7 @@ list_box.configure(background='skyblue4', foreground='white', font=('Arial', 15)
 image = PhotoImage(file='graphics/Dice/dice.png')
 image_label = tk.Button(root, image=image, command=calculate)
 image_label.place(relx=0.3, rely=0.2, anchor='center')
+root.iconphoto(True, image)
 
 my_label = tk.Label(text = 'Press icon to roll \n or "Tab" to quit \n', font=('Arial', 10))
 my_label.place(relx=0.3, rely=0.35, anchor='center')    
