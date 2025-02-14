@@ -1,3 +1,4 @@
+
 import sys
 import tkinter as tk
 from tkinter import filedialog
@@ -75,6 +76,82 @@ num_entry_sides.place(relx=0.3, rely=0.65, anchor='center')
 
 list_clear=tk.Button(root, text = 'Clear all numbers', command=clear_list_box)
 list_clear.place(relx=0.6, rely=0.8, anchor='center')
+
+def open():
+    popup = tk.Tk()
+    popup.title('Hit chance calculator')
+    popup.geometry('500x500')
+
+    AC_label=tk.Label(popup, text='Enter monster AC', font = ('Arial',10,'normal'))
+    AC_label.place(relx=0.2, rely=0.1, anchor='center')
+
+    AC_entry=tk.Entry(popup, font = ('Arial',10,'normal'))
+    AC_entry.place(relx=0.2, rely=0.15, anchor='center')
+    
+    as_label=tk.Label(popup, text='Enter to hit Mod', font = ('Arial',10,'normal'))
+    as_label.place(relx=0.2, rely=0.2, anchor='center')
+
+    as_entry=tk.Entry(popup, font = ('Arial',10,'normal'))
+    as_entry.place(relx=0.2, rely=0.25, anchor='center')
+    
+    prof_label=tk.Label(popup, text='Enter Prof Bonus', font = ('Arial',10,'normal'))
+    prof_label.place(relx=0.2, rely=0.3, anchor='center')
+
+    prof_entry=tk.Entry(popup, font = ('Arial',10,'normal'))
+    prof_entry.place(relx=0.2, rely=0.35, anchor='center')
+
+    
+    output = tk.Listbox(popup)
+    output.place(relx=0.7, rely=0.5, anchor='center', height=300)
+    output.configure(background='skyblue4', foreground='white', font=('Arial', 15))
+    
+    
+    def to_hit():
+        AC = int(AC_entry.get())
+        prof_bonus=int(prof_entry.get())
+        AS=int(as_entry.get())
+        total_bonus=prof_bonus+AS
+        if total_bonus > AC:
+            total_bonus =  AC
+        P = ((21 - (AC-total_bonus))/20 ) * 100
+        prob_hit = max(min(P, 95), 5)
+        output.insert(tk.END, prob_hit)
+    
+    def to_hit_with_adv():
+        AC = int(AC_entry.get())
+        prof_bonus=int(prof_entry.get())
+        AS=int(as_entry.get())
+        total_bonus=prof_bonus+AS
+        if total_bonus > AC:
+            total_bonus = AC
+        P = (1 - (((AC-total_bonus-1)**2)/400)) * 100
+        prob_hit = max(min(P, 99.75), 10)
+        output.insert(tk.END, prob_hit)
+        
+    def to_hit_with_dis():
+        AC = int(AC_entry.get())
+        prof_bonus=int(prof_entry.get())
+        AS=int(as_entry.get())
+        total_bonus=prof_bonus+AS
+        if total_bonus > AC:
+            total_bonus = AC
+        P = ((((21+total_bonus-AC)**2)/400)) * 100
+        prob_hit = max(min(P, 90.25), 0.25)
+        output.insert(tk.END, prob_hit)
+        
+    button2 = tk.Button(popup, text='Calculate (No Adv)', command=to_hit)
+    button2.place(relx=0.2, rely=0.5, anchor='center')
+
+    button2 = tk.Button(popup, text='Calculate (With Adv)', command=to_hit_with_adv)
+    button2.place(relx=0.2, rely=0.6, anchor='center')
+    
+    button3 = tk.Button(popup, text='Calculate (With Dis.Adv)', command=to_hit_with_dis)
+    button3.place(relx=0.2, rely=0.7, anchor='center')
+    
+    popup.mainloop()
+
+open_new=tk.Button(root, text = 'Hit chance calculator', command=open)
+open_new.place(relx=0.6, rely=0.2, anchor='center')
 
 root.bind("<Tab>", exit)
 root.mainloop()
