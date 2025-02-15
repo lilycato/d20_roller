@@ -1,4 +1,3 @@
-
 import sys
 import tkinter as tk
 from tkinter import filedialog
@@ -77,7 +76,7 @@ num_entry_sides.place(relx=0.3, rely=0.65, anchor='center')
 list_clear=tk.Button(root, text = 'Clear all numbers', command=clear_list_box)
 list_clear.place(relx=0.6, rely=0.8, anchor='center')
 
-def open():
+def open_new_window():
     popup = tk.Tk()
     popup.title('Hit chance calculator')
     popup.geometry('500x500')
@@ -88,7 +87,7 @@ def open():
     AC_entry=tk.Entry(popup, font = ('Arial',10,'normal'))
     AC_entry.place(relx=0.2, rely=0.15, anchor='center')
     
-    as_label=tk.Label(popup, text='Enter to hit Mod', font = ('Arial',10,'normal'))
+    as_label=tk.Label(popup, text='Enter Ability plus Item Mod', font = ('Arial',10,'normal'))
     as_label.place(relx=0.2, rely=0.2, anchor='center')
 
     as_entry=tk.Entry(popup, font = ('Arial',10,'normal'))
@@ -150,7 +149,7 @@ def open():
     
     popup.mainloop()
 
-open_new=tk.Button(root, text = 'Hit chance calculator', command=open)
+open_new=tk.Button(root, text = 'Hit chance calculator', command=open_new_window)
 open_new.place(relx=0.6, rely=0.2, anchor='center')
 
 root.bind("<Tab>", exit)
