@@ -112,8 +112,12 @@ def open_new_window():
     output_ac_label=tk.Label(popup, text='Monster AC:', font = ('Arial',10,'normal'))
     output_ac_label.place(relx=0.8, rely=0.065, anchor='center')
     
+    current_roll=tk.Label(popup, text='', fg='red', font = ('Arial',10,'normal'))
+    current_roll.place(relx=0.5, rely=0.85, anchor='center')
+    
     
     def to_hit():
+        current_roll['text']="Calculating normally.."
         output_ac.delete(0,"end")
         output_chance.delete(0,"end")
         AC = int(AC_entry.get())
@@ -130,6 +134,7 @@ def open_new_window():
             AC-=1
     
     def to_hit_with_adv():
+        current_roll['text']="Calculating with Adv.."
         output_ac.delete(0,"end")
         output_chance.delete(0,"end")
         AC = int(AC_entry.get())
@@ -148,6 +153,7 @@ def open_new_window():
             AC-=1
         
     def to_hit_with_dis():
+        current_roll['text']="Calculating with Dis.Adv.."
         output_ac.delete(0,"end")
         output_chance.delete(0,"end")
         AC = int(AC_entry.get())
