@@ -122,7 +122,7 @@ def open_new_window():
         total_bonus=prof_bonus+AS
         if total_bonus > AC:
             total_bonus =  AC
-        for i in range(10, AC):    
+        for i in range(0, AC):    
             P = ((21 - (AC-total_bonus))/20 ) * 100
             prob_hit = max(min(P, 95), 5)
             output_chance.insert(tk.END, prob_hit)
@@ -138,8 +138,10 @@ def open_new_window():
         total_bonus=prof_bonus+AS
         if total_bonus > AC:
             total_bonus = AC
-        for i in range(10, AC): 
+        for i in range(0, AC): 
             P = (1 - (((AC-total_bonus-1)**2)/400)) * 100
+            if AC-total_bonus-1 <=-2:
+                P = 99.75
             prob_hit = max(min(P, 99.75), 10)
             output_chance.insert(tk.END, prob_hit)
             output_ac.insert(tk.END, AC)
@@ -154,7 +156,7 @@ def open_new_window():
         total_bonus=prof_bonus+AS
         if total_bonus > AC:
             total_bonus = AC    
-        for i in range(10, AC): 
+        for i in range(0, AC): 
             P = ((((21+total_bonus-AC)**2)/400)) * 100
             if 21+total_bonus-AC<=-2:
                 P = 0.25
