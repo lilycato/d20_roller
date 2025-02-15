@@ -103,7 +103,7 @@ def open_new_window():
     output_chance = tk.Listbox(popup)
     output_chance.place(relx=0.55, rely=0.4, anchor='center', height=300, width=100)
     output_chance.configure(background='skyblue4', foreground='white', font=('Arial', 10))
-    output_chance_label=tk.Label(popup, text='Chance to hit:', font = ('Arial',10,'normal'))
+    output_chance_label=tk.Label(popup, text='Chance to hit%:', font = ('Arial',10,'normal'))
     output_chance_label.place(relx=0.55, rely=0.065, anchor='center')
     
     output_ac = tk.Listbox(popup)
@@ -156,6 +156,8 @@ def open_new_window():
             total_bonus = AC    
         for i in range(10, AC): 
             P = ((((21+total_bonus-AC)**2)/400)) * 100
+            if 21+total_bonus-AC<=-2:
+                P = 0.25
             prob_hit = max(min(P, 90.25), 0.25)
             output_chance.insert(tk.END, prob_hit)
             output_ac.insert(tk.END, AC)
