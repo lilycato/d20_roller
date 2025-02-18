@@ -2,6 +2,7 @@ import sys
 import tkinter as tk
 from tkinter import filedialog
 from tkinter import PhotoImage
+from tkinter import messagebox
 import random
 
 root = tk.Tk()
@@ -21,7 +22,7 @@ def calculate():
             total += generated
         my_label['text']="Result:" + " " + str(total)
     except:
-        my_label['text']="Please only enter numbers"
+        messagebox.showerror('Invalid Input', 'Please enter numbers only')
 
 list_box = tk.Listbox()
 list_box.place(relx=0.6, rely=0.5, anchor='center', height=300)
@@ -120,9 +121,12 @@ def open_new_window():
         current_roll['text']="Calculating normally.."
         output_ac.delete(0,"end")
         output_chance.delete(0,"end")
-        AC = int(AC_entry.get())
-        prof_bonus=int(prof_entry.get())
-        AS=int(as_entry.get())
+        try:
+            AC = int(AC_entry.get())
+            prof_bonus=int(prof_entry.get())
+            AS=int(as_entry.get())
+        except:
+            messagebox.showerror('Invalid Input', 'Please enter numbers only')
         total_bonus=prof_bonus+AS
         if total_bonus > AC:
             total_bonus =  AC
@@ -137,9 +141,12 @@ def open_new_window():
         current_roll['text']="Calculating with Adv.."
         output_ac.delete(0,"end")
         output_chance.delete(0,"end")
-        AC = int(AC_entry.get())
-        prof_bonus=int(prof_entry.get())
-        AS=int(as_entry.get())
+        try:
+            AC = int(AC_entry.get())
+            prof_bonus=int(prof_entry.get())
+            AS=int(as_entry.get())
+        except:
+            messagebox.showerror('Invalid Input', 'Please enter numbers only')
         total_bonus=prof_bonus+AS
         if total_bonus > AC:
             total_bonus = AC
@@ -156,9 +163,12 @@ def open_new_window():
         current_roll['text']="Calculating with Dis.Adv.."
         output_ac.delete(0,"end")
         output_chance.delete(0,"end")
-        AC = int(AC_entry.get())
-        prof_bonus=int(prof_entry.get())
-        AS=int(as_entry.get())
+        try:
+            AC = int(AC_entry.get())
+            prof_bonus=int(prof_entry.get())
+            AS=int(as_entry.get())
+        except:
+            messagebox.showerror('Invalid Input', 'Please enter numbers only')
         total_bonus=prof_bonus+AS
         if total_bonus > AC:
             total_bonus = AC    
