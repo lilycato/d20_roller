@@ -4,6 +4,7 @@ from tkinter import filedialog
 from tkinter import PhotoImage
 from tkinter import messagebox
 import random
+import json
 
 root = tk.Tk()
 root.title('D20 roller')
@@ -44,9 +45,9 @@ def save_to_file():
             with open(file_path, 'w') as file:
                 list_box_str = str(list_box.get(0, "end"))
                 file.write(list_box_str)
-            status_label.config(text=f"File saved: {file_path}")
+            messagebox.showinfo('File Saved to:', file_path)
         except Exception as e:
-            status_label.config(text=f"Error saving file: {str(e)}")
+            messagebox.showerror('Error', 'An error has occured while saving.')
             
 def clear_list_box():
    list_box.delete(0,"end")
@@ -180,6 +181,29 @@ def open_new_window():
             output_chance.insert(tk.END, prob_hit)
             output_ac.insert(tk.END, AC)
             AC-=1
+            
+    def save_output_text():
+        output_ac_list=[]
+        output_chance_list=[]
+                    
+        for item in output_ac.get(0, "end"):
+            output_ac_list.append("AC:" + str(item))
+                        
+        for items in output_chance.get(0, "end"):
+            output_chance_list.append(str(items) + "%")
+            
+        file_path = filedialog.asksaveasfilename(defaultextension=json, filetypes=[("JSON files", "*.json"), ("All files", "*.*")])
+        if file_path:
+            try:
+                with open(file_path, 'w') as file:
+                    dict={}
+                    for key, value in zip(output_ac_list, output_chance_list):
+                        dict[key] = value
+                    file.write(json.dumps(dict, indent=4))
+                messagebox.showinfo('File Saved to:', file_path)
+            except Exception as e:
+                messagebox.showerror('Error', 'An error has occured while saving.')
+        
         
     button2 = tk.Button(popup, text='Calculate (No Adv)', command=to_hit)
     button2.place(relx=0.2, rely=0.5, anchor='center')
@@ -189,6 +213,9 @@ def open_new_window():
     
     button3 = tk.Button(popup, text='Calculate (With Dis.Adv)', command=to_hit_with_dis)
     button3.place(relx=0.2, rely=0.7, anchor='center')
+    
+    button4 = tk.Button(popup, text='Save table to JSON', command=save_output_text)
+    button4.place(relx=0.65, rely=0.75, anchor='center')
     
     popup.mainloop()
 
