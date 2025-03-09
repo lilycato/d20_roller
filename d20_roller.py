@@ -78,6 +78,71 @@ num_entry_sides.place(relx=0.3, rely=0.65, anchor='center')
 list_clear=tk.Button(root, text = 'Clear all numbers', command=clear_list_box)
 list_clear.place(relx=0.6, rely=0.8, anchor='center')
 
+def init_tracker_window():
+    init_w = tk.Tk()
+    init_w.title('Initiative Tracker')
+    init_w.geometry('500x500')
+    tracker_dict = {}
+
+    monster_name=tk.Label(init_w, text='Enter name', font = ('Arial',10,'normal'))
+    monster_name.place(relx=0.2, rely=0.1, anchor='center')
+
+    name_entry=tk.Entry(init_w, font = ('Arial',10,'normal'))
+    name_entry.place(relx=0.2, rely=0.15, anchor='center')
+    
+    initiative_label=tk.Label(init_w, text='Enter Initiative', font = ('Arial',10,'normal'))
+    initiative_label.place(relx=0.2, rely=0.2, anchor='center')
+
+    init_entry=tk.Entry(init_w, font = ('Arial',10,'normal'))
+    init_entry.place(relx=0.2, rely=0.25, anchor='center')
+  
+    name = tk.Listbox(init_w)
+    name.place(relx=0.55, rely=0.4, anchor='center', height=300, width=100)
+    name.configure(background='skyblue4', foreground='white', font=('Arial', 10))
+    name_label=tk.Label(init_w, text='Name:', font = ('Arial',10,'normal'))
+    name_label.place(relx=0.55, rely=0.065, anchor='center')
+    
+    initiative = tk.Listbox(init_w)
+    initiative.place(relx=0.8, rely=0.4, anchor='center', height=300, width=100)
+    initiative.configure(background='skyblue4', foreground='white', font=('Arial', 10))
+    init_entry_label=tk.Label(init_w, text='Initative:', font = ('Arial',10,'normal'))
+    init_entry_label.place(relx=0.8, rely=0.065, anchor='center')
+    
+    current_status=tk.Label(init_w, text='', fg='red', font = ('Arial',10,'normal'))
+    current_status.place(relx=0.5, rely=0.85, anchor='center')
+    
+ 
+    def add_to_tracker():
+        current_status['text']="Adding monsters.."
+        initiative.delete(0,"end")
+        name.delete(0,"end")
+        name_entered = name_entry.get()
+        
+        try:
+            initiative_count = int(init_entry.get())
+        except:
+            messagebox.showerror('Invalid Input', 'Please enter numbers only')
+            
+        tracker_dict[name_entered] = initiative_count
+        sorted_tracker_dict=dict(sorted(tracker_dict.items(), key=lambda item: item[1]))
+        
+        name_keys = list(sorted_tracker_dict.keys())
+        init_values = list(sorted_tracker_dict.values())
+        
+        for keys in reversed(name_keys):    
+            name.insert(tk.END, keys)
+            
+        for values in reversed(init_values):    
+            initiative.insert(tk.END, values)
+                         
+    button_add2tracker = tk.Button(init_w, text='Add to tracker', command=add_to_tracker)
+    button_add2tracker.place(relx=0.2, rely=0.5, anchor='center')
+    
+    init_w.mainloop()
+    
+open_new=tk.Button(root, text = 'Initiative Tracker', command=init_tracker_window)
+open_new.place(relx=0.6, rely=0.125, anchor='center')
+    
 def open_new_window():
     popup = tk.Tk()
     popup.title('Hit chance calculator')
@@ -197,8 +262,8 @@ def open_new_window():
             try:
                 with open(file_path, 'w') as file:
                     dict={}
-                    for key, value in zip(output_ac_list, output_chance_list):
-                        dict[key] = value
+                    for key,value in zip(output_ac_list, output_chance_list):
+                        dict[key]=value
                     file.write(json.dumps(dict, indent=4))
                 messagebox.showinfo('File Saved to:', file_path)
             except Exception as e:
