@@ -105,7 +105,7 @@ def init_tracker_window():
     initiative = tk.Listbox(init_w)
     initiative.place(relx=0.8, rely=0.4, anchor='center', height=300, width=100)
     initiative.configure(background='skyblue4', foreground='white', font=('Arial', 10))
-    init_entry_label=tk.Label(init_w, text='Initative:', font = ('Arial',10,'normal'))
+    init_entry_label=tk.Label(init_w, text='Initiative:', font = ('Arial',10,'normal'))
     init_entry_label.place(relx=0.8, rely=0.065, anchor='center')
     
     current_status=tk.Label(init_w, text='', fg='red', font = ('Arial',10,'normal'))
@@ -134,9 +134,19 @@ def init_tracker_window():
             
         for values in reversed(init_values):    
             initiative.insert(tk.END, values)
-                         
+    
+    def clear_tracker():
+        initiative.delete(0,"end")
+        name.delete(0,"end")
+        name_entry.delete(0,"end")
+        init_entry.delete(0,"end")
+        tracker_dict.clear()
+                             
     button_add2tracker = tk.Button(init_w, text='Add to tracker', command=add_to_tracker)
     button_add2tracker.place(relx=0.2, rely=0.5, anchor='center')
+    
+    clear_tracker_btn = tk.Button(init_w, text='Clear tracker', command=clear_tracker)
+    clear_tracker_btn.place(relx=0.2, rely=0.4, anchor='center')
     
     init_w.mainloop()
     
