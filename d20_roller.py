@@ -141,12 +141,20 @@ def init_tracker_window():
         name_entry.delete(0,"end")
         init_entry.delete(0,"end")
         tracker_dict.clear()
+        
+    def del_selection():
+        for selected in name.curselection():
+            name.delete(selected)
+            initiative.delete(selected)
                              
     button_add2tracker = tk.Button(init_w, text='Add to tracker', command=add_to_tracker)
     button_add2tracker.place(relx=0.2, rely=0.5, anchor='center')
     
     clear_tracker_btn = tk.Button(init_w, text='Clear tracker', command=clear_tracker)
     clear_tracker_btn.place(relx=0.2, rely=0.4, anchor='center')
+    
+    del_btn = tk.Button(init_w, text='Delete', command=del_selection)
+    del_btn.place(relx=0.2, rely=0.6, anchor='center')
     
     init_w.mainloop()
     
